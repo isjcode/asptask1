@@ -1,0 +1,51 @@
+﻿@model List<Plan>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<!-- ======= Breadcrumbs ======= -->
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+        <ol>
+            <li><a href="index.html">Home</a></li>
+            <li>Pricing</li>
+        </ol>
+        <h2>Pricing</h2>
+
+    </div>
+</section><!-- End Breadcrumbs -->
+
+<!-- ======= Pricing Section ======= -->
+<section id="pricing" class="pricing">
+    <div class="container">
+
+        <div class="row no-gutters">
+
+            @foreach (Plan plan in Model)
+            {
+                <div class="col-lg-4 box @(plan.IsFeature ? "featured":"")">
+                    <h3>@plan.Name</h3>
+                    <h4>$@plan.Price<span>per month</span></h4>
+                    <ul>
+                        @for (int i = 0; i < plan.FeatureCount; i++)
+                        {
+                            
+                            <li><i class="bx bx-check"></i> @plan.PlanFeatures[i].FeatureItem.Name</li>  
+                        }
+
+                        @for (int i = (plan.PlanFeatures.Count - (plan.PlanFeatures.Count - plan.FeatureCount)); i < plan.PlanFeatures.Count; i++ )
+                        {
+                            <li class="na"><i class="bx bx-x"></i> <span> @plan.PlanFeatures[i].FeatureItem.Name </span></li>
+                        }
+                    </ul>
+                    <a href="#" class="buy-btn">Buy Now</a>
+                </div>
+            }
+
+        </div>
+
+    </div>
+</section><!-- End Pricing Section -->
